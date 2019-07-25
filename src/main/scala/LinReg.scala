@@ -1,10 +1,13 @@
 import math.sqrt
 import scala.util.Random
 
+
+
 /*
 Consideration for future work:
   - Use Data = Array[List[Double]] for quicker insertion of intercept column
   - Use loops to avoid zip operations (requires time complexity analysis)
+  - Some way to generalize fit and leave it in the abstract base class
   - Introduce error handling and wrap it instead of exposing type Option[A] as outputs
   - Getters
   - Add verbose option to return fit information
@@ -39,7 +42,7 @@ class LinReg(override val alpha: Double = 0.01,                      // learning
 
     def fitStream(it: Weights): Stream[Weights] = it #:: fitStream(descend(it,_X,y))
 
-    def beta: Weights = fitStream(init).drop(iterations).head
+    lazy val beta: Weights = fitStream(init).drop(iterations).head
 
     new LinReg(alpha, Some(beta), Some(loss(beta,X,y)), intercept, seed)
 
@@ -54,27 +57,16 @@ class LinReg(override val alpha: Double = 0.01,                      // learning
     )
   }
 
-  protected def grad(w: Weights, X: Data, y: Array[Double]): Array[Double] = {
+  override def grad(w: Weights, X: Data, y: Array[Double]): Array[Double] = {
     // Internal method for computation of the gradient
-    _residuals(w, X, y)
+    val c: Double = -2.0 / X.length                             // -2/Number of observations , coefficient outside summation in descent
+    transposeMatDotVec(X,_residuals(w, X, y)).map(_*c)
   }
-
 
   protected def _residuals(w: Weights, X: Data, y: Array[Double]): Array[Double] = {
     y.zip(_predict(w, X))
       .map { case (yTrue, yPred) => yTrue - yPred }
   }
-
-
-  override def descend(beta: Weights, X: Data, y: Array[Double]): Weights = {
-    // Gradient descent update of weight array
-    val c: Double = -2.0 / X.length                             // -2/Number of observations , coefficient outside summation in descent
-    transposeMatDotVec(X, _residuals(beta, X, y))
-      .zip(beta)
-      .map { case (g, w) => w - alpha * c * g }
-  }
-
-
 
   override def _predict(w: Weights, X: Data): Array[Double] = matDotVec(X,w)
 

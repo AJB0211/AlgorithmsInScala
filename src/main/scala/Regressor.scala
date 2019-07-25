@@ -8,7 +8,6 @@ abstract class Regressor(val alpha: Double = 0.01,                      // learn
   type Data = Array[Array[Double]]
   type Weights = Array[Double]
 
-
   // Add an intercept to produce a Data s/t each element is an Array(intercept, {coefs})
   def addIntercept(X: Data): Data = X.map(1.0 +: _)
 
@@ -19,8 +18,6 @@ abstract class Regressor(val alpha: Double = 0.01,                      // learn
                           seed: Int = this.seed): U
 
   def loss(beta: Weights, X: Data, y: Array[Double]): Double
-
-  def descend(beta: Weights, X: Data, y: Array[Double]): Weights
 
   final def transposeMatDotVec(A: Data, v: Array[Double]): Array[Double] = {
     // Inner product: transpose(A).v
@@ -49,13 +46,19 @@ abstract class Regressor(val alpha: Double = 0.01,                      // learn
   }.toArray
 
   // Accessible predict method for returning model predictions
-  def predict(X: Data): Option[Array[Double]] = coef match {
-    case Some(w) => Some(_predict(w, X))
-    case _ => None
-  }
+  def predict(X: Data): Option[Array[Double]] = coef.map( w =>_predict(w,X))
 
 
   def _predict(w: Weights, X: Data): Array[Double]
+
+  def grad(w: Weights, X: Data, y: Array[Double]): Weights
+
+  def descend(beta: Weights, X: Data, y: Array[Double]): Weights = {
+    // Gradient descent update of weight array
+    beta
+      .zip(grad(beta,X,y))
+      .map { case (w, g) => w - alpha * g }
+  }
 
 
   final protected def square(x: Double): Double = x * x

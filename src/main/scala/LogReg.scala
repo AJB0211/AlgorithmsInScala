@@ -1,9 +1,11 @@
+
 import scala.util.Random
-import scala.math.exp
+import scala.math.{exp, log, round}
+
 
 class LogReg(override val alpha: Double = 0.01,                      // learning rate
         override val coef: Option[Array[Double]] = None,        // Option[ Array of coefficients ], None if fit is not called
-        override val score: Option[Double] = None,              // Option [ RMSE ], None if fit not called
+        override val score: Option[Double] = None,              // Option [ Loss ], None if fit not called
         override val intercept: Boolean = true,                 // boolean indicator of if an intercept is used
         override val seed: Int = 0)                             // set seed for reproducibility, passed to random initializer
         extends Regressor(alpha,coef,score,intercept,seed) {
@@ -33,19 +35,31 @@ class LogReg(override val alpha: Double = 0.01,                      // learning
 
   }
 
+  override def loss(beta: Weights, X: Data, y: Array[Double]): Double = {
+    // Computes positive log loss, not loss or negative log los
+    y.zip(_predict(beta,X))
+      .map{case (y,p) => y*log(p) + (1-y)*log(1-p)}
+      .sum / X.length
+  }
 
+  override def predict(X:Data): Option[Array[Double]] = coef.map( w => _predict(w,X).map(round))
 
   override def _predict(w: Weights, X: Data): Array[Double] = matDotVec(X,w).map(sigmoid)
 
-  final def sigmoid(x: Double): Double = 1.0 / 1.0 + exp(-1*x)
+  override def grad(w: Weights, X: Data, y: Array[Double]): Weights = {
+    // - x.T (y - _predict)
+    transposeMatDotVec(X,
+      y.zip(_predict(w,X))
+          .map(p => p._2 - p._1)
+      )
+  }
+
+  final def sigmoid(x: Double): Double = 1.0 / (1.0 + exp(-1.0*x))
 }
-
-
-
-
 
 
   object LogReg {
     def apply(alpha: Double): LogReg = new LogReg(alpha)
     // def unapply
 }
+

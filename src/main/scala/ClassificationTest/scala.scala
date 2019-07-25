@@ -1,0 +1,5 @@
+package ClassificationTest
+
+class scala {
+
+}

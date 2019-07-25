@@ -4,7 +4,7 @@
 		module="algorithmsinscala_2.12"
 		revision="0.1"
 		status="integration"
-		publication="20190703234324"
+		publication="20190706192028"
 	>
 		<description>
 		AlgorithmsInScala
@@ -32,6 +32,5 @@
 	<dependencies>
 		<dependency org="org.scala-lang" name="scala-compiler" rev="2.12.8" conf="scala-tool->default,optional(default)"/>
 		<dependency org="org.scala-lang" name="scala-library" rev="2.12.8" conf="scala-tool->default,optional(default);compile->default(compile)"/>
-		<dependency org="co.theasi" name="plotly_2.12" rev="0.2.0" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>
