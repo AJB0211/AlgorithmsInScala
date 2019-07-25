@@ -1,5 +1,0 @@
-package ClassificationTest
-
-class scala {
-
-}

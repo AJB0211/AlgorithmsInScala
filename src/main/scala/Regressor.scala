@@ -1,3 +1,4 @@
+
 abstract class Regressor(val alpha: Double = 0.01,                      // learning rate
                          val coef: Option[Array[Double]] = None,        // Option[ Array of coefficients ], None if fit is not called
                          val score: Option[Double] = None,              // Option [ RMSE ], None if fit not called

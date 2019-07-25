@@ -12,8 +12,7 @@ class LogReg(override val alpha: Double = 0.01,                      // learning
 
   // figure out how to place this in Regressor
   // fit call self constructor for derived types
-  override def fit[U >: Regressor](
-                                    X: Data,
+  override def fit[U >: Regressor]( X: Data,
                                     y: Array[Double],
                                     iterations: Int = 1000,
                                     intercept: Boolean = true,
@@ -32,7 +31,6 @@ class LogReg(override val alpha: Double = 0.01,                      // learning
     def beta: Weights = fitStream(init).drop(iterations).head
 
     new LogReg(alpha, Some(beta), Some(loss(beta, X, y)), intercept, seed)
-
   }
 
   override def loss(beta: Weights, X: Data, y: Array[Double]): Double = {
@@ -42,7 +40,7 @@ class LogReg(override val alpha: Double = 0.01,                      // learning
       .sum / X.length
   }
 
-  override def predict(X:Data): Option[Array[Double]] = coef.map( w => _predict(w,X).map(round))
+  override def predict(X:Data): Option[Array[Double]] = coef.map( w => _predict(w,X).map(round(_).toDouble))
 
   override def _predict(w: Weights, X: Data): Array[Double] = matDotVec(X,w).map(sigmoid)
 
@@ -54,8 +52,19 @@ class LogReg(override val alpha: Double = 0.01,                      // learning
       )
   }
 
+  // Figure out how to get implicits to work and modify accuracy
+//  implicit def boolToInt(b: Boolean): Numeric[Boolean] = if (b) 1 else 0
+
+  def accuracy(X: Data, y: Array[Double]): Option[Double] = predict(X).map(
+    preds => preds.zip(y)
+      .map(p => 1 - p._1.toInt^p._2.toInt)
+      .sum / y.length.toDouble
+  )
+
   final def sigmoid(x: Double): Double = 1.0 / (1.0 + exp(-1.0*x))
 }
+
+
 
 
   object LogReg {

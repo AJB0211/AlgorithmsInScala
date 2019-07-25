@@ -9,7 +9,7 @@ object RegressionTest extends App {
   val errorDeviation: Double = 0.01
 
 
-  val rnd: Random = Random
+  val rnd: Random = new Random(0)
   val X: Array[Array[Double]] = Array.fill[Array[Double]](numPoints)(Array.fill[Double](slope.length)(Random.nextDouble))
 
 
