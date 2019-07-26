@@ -2,18 +2,6 @@ import math.sqrt
 import scala.util.Random
 
 
-
-/*
-Consideration for future work:
-  - Use Data = Array[List[Double]] for quicker insertion of intercept column
-  - Use loops to avoid zip operations (requires time complexity analysis)
-  - Some way to generalize fit and leave it in the abstract base class
-  - Introduce error handling and wrap it instead of exposing type Option[A] as outputs
-  - Getters
-  - Add verbose option to return fit information
-  - Include statistics (ex. R^2)
- */
-
 // Fix member definitions with inheritance
 class LinReg(override val alpha: Double = 0.01,                      // learning rate
              override val coef: Option[Array[Double]] = None,        // Option[ Array of coefficients ], None if fit is not called
@@ -25,12 +13,35 @@ class LinReg(override val alpha: Double = 0.01,                      // learning
 
   // figure out how to place this in Regressor
   // fit call self constructor for derived types
-  override def fit[U >: Regressor](
-          X: Data,
-          y: Array[Double],
-          iterations: Int = 1000,
-          intercept: Boolean = true,
-          seed: Int = this.seed): U = {
+//  override def fit[U >: Regressor](
+//          X: Data,
+//          y: Array[Double],
+//          iterations: Int = 1000,
+//          intercept: Boolean = true,
+//          seed: Int = this.seed): U = {
+//
+//    // Create local data array if intercept is used
+//    val _X: Data = if (intercept) addIntercept(X) else X
+//
+//    val initializer: Random = new Random()
+//    initializer.setSeed(seed)
+//
+//    val init: Weights = Array.fill[Double](_X.head.length)(initializer.nextDouble)
+//
+//    def fitStream(it: Weights): Stream[Weights] = it #:: fitStream(descend(it,_X,y))
+//
+//    lazy val beta: Weights = fitStream(init).drop(iterations).head
+//
+//    new LinReg(alpha, Some(beta), Some(loss(beta,X,y)), intercept, seed)
+//
+//  }
+
+   def fit(
+            X: Data,
+            y: Array[Double],
+            iterations: Int = 1000,
+            intercept: Boolean = true,
+            seed: Int = this.seed): LinReg = {
 
     // Create local data array if intercept is used
     val _X: Data = if (intercept) addIntercept(X) else X
@@ -74,7 +85,7 @@ class LinReg(override val alpha: Double = 0.01,                      // learning
 
 
 object LinReg {
-  def apply(alpha: Double): LinReg =  new LinReg(alpha)
+  def apply(alpha: Double = 0.1): LinReg =  new LinReg(alpha)
   // def unapply => return coefficient vector / output vector to text
 
 }

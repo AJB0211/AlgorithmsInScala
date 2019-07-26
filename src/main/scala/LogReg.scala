@@ -3,7 +3,7 @@ import scala.util.Random
 import scala.math.{exp, log, round}
 
 
-class LogReg(override val alpha: Double = 0.01,                      // learning rate
+class LogReg(override val alpha: Double = 0.01,                 // learning rate
         override val coef: Option[Array[Double]] = None,        // Option[ Array of coefficients ], None if fit is not called
         override val score: Option[Double] = None,              // Option [ Loss ], None if fit not called
         override val intercept: Boolean = true,                 // boolean indicator of if an intercept is used
@@ -12,11 +12,34 @@ class LogReg(override val alpha: Double = 0.01,                      // learning
 
   // figure out how to place this in Regressor
   // fit call self constructor for derived types
-  override def fit[U >: Regressor]( X: Data,
-                                    y: Array[Double],
-                                    iterations: Int = 1000,
-                                    intercept: Boolean = true,
-                                    seed: Int = this.seed): U = {
+//  override def fit[U >: Regressor]( X: Data,
+//                                    y: Array[Double],
+//                                    iterations: Int = 1000,
+//                                    intercept: Boolean = true,
+//                                    seed: Int = this.seed): U = {
+//
+//    // Create local data array if intercept is used
+//    val _X: Data = if (intercept) addIntercept(X) else X
+//
+//    val initializer: Random = new Random()
+//    initializer.setSeed(seed)
+//
+//    val init: Weights = Array.fill[Double](_X.head.length)(initializer.nextDouble)
+//
+//    def fitStream(it: Weights): Stream[Weights] = it #:: fitStream(descend(it, _X, y))
+//
+//    def beta: Weights = fitStream(init).drop(iterations).head
+//
+//    new LogReg(alpha, Some(beta), Some(loss(beta, X, y)), intercept, seed)
+//  }
+
+
+   def fit(
+            X: Data,
+            y: Array[Double],
+            iterations: Int = 1000,
+            intercept: Boolean = true,
+            seed: Int = this.seed): LogReg = {
 
     // Create local data array if intercept is used
     val _X: Data = if (intercept) addIntercept(X) else X
@@ -33,26 +56,31 @@ class LogReg(override val alpha: Double = 0.01,                      // learning
     new LogReg(alpha, Some(beta), Some(loss(beta, X, y)), intercept, seed)
   }
 
+
   override def loss(beta: Weights, X: Data, y: Array[Double]): Double = {
-    // Computes positive log loss, not loss or negative log los
+    // Computes positive log loss, not loss or negative log loss
     y.zip(_predict(beta,X))
-      .map{case (y,p) => y*log(p) + (1-y)*log(1-p)}
+      .map{case (yi,p) => yi*log(p+1e-5) + (1-yi)*log(1-p+1e-5)}
       .sum / X.length
   }
 
-  override def predict(X:Data): Option[Array[Double]] = coef.map( w => _predict(w,X).map(round(_).toDouble))
+  override def predict(X:Data): Option[Array[Double]] = {
+    coef.map(
+      w => _predict(w,X)
+        .map(round(_).toDouble))
+  }
 
   override def _predict(w: Weights, X: Data): Array[Double] = matDotVec(X,w).map(sigmoid)
 
   override def grad(w: Weights, X: Data, y: Array[Double]): Weights = {
-    // - x.T (y - _predict)
+    // x.T (y - _predict)
     transposeMatDotVec(X,
       y.zip(_predict(w,X))
-          .map(p => p._2 - p._1)
+          .map(p => p._1 - p._2)
       )
   }
 
-  // Figure out how to get implicits to work and modify accuracy
+  // Figure out how to get implicits to work and modify accuracy method
 //  implicit def boolToInt(b: Boolean): Numeric[Boolean] = if (b) 1 else 0
 
   def accuracy(X: Data, y: Array[Double]): Option[Double] = predict(X).map(
@@ -68,7 +96,7 @@ class LogReg(override val alpha: Double = 0.01,                      // learning
 
 
   object LogReg {
-    def apply(alpha: Double): LogReg = new LogReg(alpha)
+    def apply(alpha: Double = 0.1): LogReg = new LogReg(alpha)
     // def unapply
 }
 

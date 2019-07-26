@@ -12,11 +12,12 @@ abstract class Regressor(val alpha: Double = 0.01,                      // learn
   // Add an intercept to produce a Data s/t each element is an Array(intercept, {coefs})
   def addIntercept(X: Data): Data = X.map(1.0 +: _)
 
-  def fit[U >: Regressor](X: Data,
-                          y: Array[Double],
-                          iterations: Int,
-                          intercept: Boolean,
-                          seed: Int = this.seed): U
+  // Reinstate when type variance is fixed
+//  def fit[U >: Regressor](X: Data,
+//                          y: Array[Double],
+//                          iterations: Int,
+//                          intercept: Boolean,
+//                          seed: Int = this.seed): U
 
   def loss(beta: Weights, X: Data, y: Array[Double]): Double
 
@@ -52,6 +53,7 @@ abstract class Regressor(val alpha: Double = 0.01,                      // learn
 
   def _predict(w: Weights, X: Data): Array[Double]
 
+  // Implement grad in each child class which will be called by descend in fit function
   def grad(w: Weights, X: Data, y: Array[Double]): Weights
 
   def descend(beta: Weights, X: Data, y: Array[Double]): Weights = {

@@ -10,31 +10,26 @@ object RegressionTest extends App {
 
 
   val rnd: Random = new Random(0)
-  val X: Array[Array[Double]] = Array.fill[Array[Double]](numPoints)(Array.fill[Double](slope.length)(Random.nextDouble))
+  val X: Array[Array[Double]] = Array.fill[Array[Double]](numPoints)(Array.fill[Double](slope.length)(rnd.nextDouble))
 
 
   val y: Array[Double] = {
     X.map(_.zip(slope).map {
       case (x, m) => x * m
-    }.sum + intercept + +errorDeviation * rnd.nextGaussian)
+    }.sum + intercept  + errorDeviation * rnd.nextGaussian)
   }
 
 
-//  println(X.length)
-//  println(X.head.length)
-//
-//  println(y.length)
-
-
-  val reg: Regressor = {
+  val reg: LinReg = {
     LinReg(0.1)
       .fit(X, y, iterations = 10000)
   }
 
   println
-  reg.coef.get.foreach(println)
+  println("Coefficients:")
+  reg.coef.get.foreach(out => println(f"\t$out%.5f"))
   println
-  println(reg.score.get)
+  println(f"Loss:     ${reg.score.getOrElse(666.0)}%.3f")
 
 }
 
@@ -43,7 +38,7 @@ object RegressionTest extends App {
 
 //object LinRegTest extends LinReg {
 //  def apply(alpha: Double): LinReg = {
-//    val out = new LinReg(alpha)
+//    val out = new LinReg(alpha)map
 //
 //    out.transposeMatDotVec(Array(Array(1,0,0),Array(0,1,0),Array(0,0,1)),Array(1,2,3)).foreach(println)
 //
