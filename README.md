@@ -1,4 +1,4 @@
-## Functional Algorithms in Scala
+# Functional Algorithms in Scala
 
 Common machine learning algorithms are implemented in base Scala (no Spark or linear algebra libraries.) This implementation is purely functional; no objects are mutated. The purpose of this library is not efficiency but proof of concept therefore runtimes and rates of convergence could be improved. 
 
@@ -15,7 +15,11 @@ Some features of the Scala programming language utilized:
     + check out transposeMatDotVec and matDotVec in the Regressor base class!
 
 
+Note this is an Intellij Idea project built with SBT so relevant files are stored in `src/main/scala`. 
+
+
 ## Future Work:
+  - Proper package structure
   - Use `Data = Array[List[Double]]` for quicker insertion of intercept column
   - Implement dimensionality checks for inputs
   - Implement regularization using L1, L2, elastic traits

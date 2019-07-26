@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5a30b10a-1a8a-441c-8574-f42b4c2b9fed" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/ClassificationTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/ClassificationTest.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/LinReg.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/LinReg.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/LogReg.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/LogReg.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/RegressionTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/RegressionTest.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Regressor.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Regressor.scala" afterDir="false" />
-    </list>
+    <list default="true" id="5a30b10a-1a8a-441c-8574-f42b4c2b9fed" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/project/project/target/" />
@@ -40,20 +33,20 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/scala/ClassificationTest.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="22" column="56" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
+                <state relative-caret-position="120">
+                  <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/scala/Regressor.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="44">
-                  <caret line="39" column="3" lean-forward="true" selection-start-line="39" selection-start-column="3" selection-end-line="39" selection-end-column="3" />
+                <state relative-caret-position="403">
+                  <caret line="62" column="43" lean-forward="true" selection-start-line="62" selection-start-column="43" selection-end-line="62" selection-end-column="43" />
                 </state>
               </provider>
             </entry>
@@ -89,8 +82,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/scala/LogReg.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="194">
-                  <caret line="78" column="33" lean-forward="true" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
+                <state relative-caret-position="434">
+                  <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
                   <folding>
                     <element signature="e#1#25#0" expanded="true" />
                   </folding>
@@ -110,15 +103,15 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/scala/for_ea.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/ClassificationTest/scala.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Regressor.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/LinReg.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/RegressionTest.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/ClassificationTest.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/LogReg.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/ClassificationTest.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Regressor.scala" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="179" />
     <option name="y" value="1" />
     <option name="width" value="1400" />
@@ -256,7 +249,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-1" width="1920" height="1045" extended-state="6" />
+    <frame x="0" y="-1" width="1920" height="1045" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.19477054" />
@@ -312,13 +305,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Regressor.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="39" column="3" lean-forward="true" selection-start-line="39" selection-start-column="3" selection-end-line="39" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/RegressionTest.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -326,20 +312,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/ClassificationTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="56" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/LogReg.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="78" column="33" lean-forward="true" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
+        <state relative-caret-position="88">
+          <caret line="41" column="46" lean-forward="true" selection-start-line="41" selection-start-column="46" selection-end-line="41" selection-end-column="46" />
           <folding>
             <element signature="e#1#25#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ClassificationTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Regressor.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="62" column="43" lean-forward="true" selection-start-line="62" selection-start-column="43" selection-end-line="62" selection-end-column="43" />
         </state>
       </provider>
     </entry>
